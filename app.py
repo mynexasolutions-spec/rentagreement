@@ -130,6 +130,36 @@ def add_header(response):
         response.cache_control.max_age = 31536000
     return response
 
+@app.route('/admin/update-db')
+@login_required
+def update_db():
+    try:
+        from sqlalchemy import text
+        # Add missing columns one by one
+        columns = [
+            ("owner_aadhaar", "VARCHAR(20)"),
+            ("owner_pan", "VARCHAR(20)"),
+            ("tenant_name", "VARCHAR(100)"),
+            ("tenant_phone", "VARCHAR(20)"),
+            ("property_address", "TEXT"),
+            ("rent", "VARCHAR(20)"),
+            ("deposit", "VARCHAR(20)"),
+            ("start_date", "VARCHAR(50)"),
+            ("duration", "VARCHAR(50)")
+        ]
+        
+        for col_name, col_type in columns:
+            try:
+                db.session.execute(text(f"ALTER TABLE form_entry ADD COLUMN {col_name} {col_type}"))
+                db.session.commit()
+            except Exception as e:
+                db.session.rollback()
+                print(f"Column {col_name} might already exist: {e}")
+        
+        return "Database updated successfully! <a href='/admin'>Go back to Dashboard</a>"
+    except Exception as e:
+        return f"Error updating database: {e}"
+
 @app.route('/admin/delete/<int:id>', methods=['POST'])
 @login_required
 def delete_entry(id):
