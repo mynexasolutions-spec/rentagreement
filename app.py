@@ -3,14 +3,14 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_compress import Compress
 from datetime import datetime
 import functools
+import os
 
 app = Flask(__name__)
-app.secret_key = 'pune-online-agreement-secret-key-2025'
+app.secret_key = os.environ.get('SECRET_KEY', 'pune-online-agreement-secret-key-2025')
 Compress(app) # Enable Gzip compression
 
 # Supabase PostgreSQL Configuration
-# Password URL-encoded: @ -> %40
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres.xuxmidhrmnvvzjxeqnuz:Nexasolutions%400302@aws-1-ap-southeast-1.pooler.supabase.com:5432/postgres'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'postgresql://postgres.xuxmidhrmnvvzjxeqnuz:Nexasolutions%400302@aws-1-ap-southeast-1.pooler.supabase.com:5432/postgres')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
