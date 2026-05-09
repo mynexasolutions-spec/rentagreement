@@ -75,16 +75,22 @@
 .addr { line-height: 1.5; margin-top: .75rem; }
 .footer-bottom {
   border-top: 1px solid rgba(255,255,255,.08);
-  padding: 1.5rem 2rem;
+  padding: 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
   max-width: 1400px;
   margin: 0 auto;
+  flex-wrap: wrap;
+  gap: 1.5rem;
 }
 .footer-bottom p {
   color: var(--gray-400);
   font-size: .82rem;
+}
+.footer-credit p {
+  font-size: .85rem;
+  color: var(--gray-400);
 }
 
 @media (max-width: 1024px) {
@@ -92,5 +98,11 @@
 }
 @media (max-width: 768px) {
   .footer-top { grid-template-columns: 1fr; gap: 2rem; padding: 3rem 1.5rem; }
-  .footer-bottom { flex-direction: column; gap: .5rem; text-align: center; padding: 1.5rem; }
+  .footer-bottom { 
+    flex-direction: column; 
+    gap: 1.5rem; 
+    text-align: center; 
+    padding: 3rem 1.5rem 8rem; /* Increased bottom padding for floating buttons */
+  }
+  .footer-bottom-left { display: flex; flex-direction: column; gap: 0.5rem; }
 }

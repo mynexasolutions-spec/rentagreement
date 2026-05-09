@@ -1,10 +1,12 @@
 from flask import Flask, render_template, request, jsonify, session, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
+from flask_compress import Compress
 from datetime import datetime
 import functools
 
 app = Flask(__name__)
-app.secret_key = 'pune-online-agreement-secret-key-2025' # Change this in production
+app.secret_key = 'pune-online-agreement-secret-key-2025'
+Compress(app) # Enable Gzip compression
 
 # Supabase PostgreSQL Configuration
 # Password URL-encoded: @ -> %40
@@ -80,7 +82,7 @@ def submit_form():
 def login():
     if request.method == 'POST':
         # Using a simple hardcoded password for now
-        if request.form.get('password') == 'admin123':
+        if request.form.get('password') == 'Nexasolutions@0302':
             session['logged_in'] = True
             return redirect(url_for('admin'))
         else:
@@ -97,6 +99,13 @@ def logout():
 def admin():
     entries = FormEntry.query.order_by(FormEntry.created_at.desc()).all()
     return render_template('admin.html', entries=entries)
+
+@app.after_request
+def add_header(response):
+    # Cache static files for 1 year
+    if request.path.startswith('/static/'):
+        response.cache_control.max_age = 31536000
+    return response
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
