@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block title %}Admin Login – Pune Online Agreement{% endblock %}
+
+{% block extra_css %}
+<style>
+  .login-page {
+    background: var(--teal-900);
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+  }
+  .login-card {
+    background: white;
+    padding: 3rem;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+  }
+  .login-card h1 {
+    font-family: var(--font-display);
+    color: var(--teal-900);
+    margin-bottom: 1rem;
+    font-size: 1.8rem;
+  }
+  .login-card p {
+    color: var(--gray-600);
+    margin-bottom: 2rem;
+    font-size: .9rem;
+  }
+  .error-msg {
+    background: #fee2e2;
+    color: #991b1b;
+    padding: .75rem;
+    border-radius: 8px;
+    font-size: .85rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+  }
+  .login-form {
+    text-align: left;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="login-page">
+  <div class="login-card">
+    <div class="logo-mark" style="margin: 0 auto 1.5rem; width: 60px; height: 60px; font-size: 1.8rem;">P</div>
+    <h1>Admin Access</h1>
+    <p>Please enter your administrator password to continue.</p>
+
+    {% if error %}
+      <div class="error-msg">⚠️ {{ error }}</div>
+    {% endif %}
+
+    <form class="login-form" method="POST">
+      <div class="form-group">
+        <label>Admin Password</label>
+        <input type="password" name="password" placeholder="••••••••" required autofocus>
+      </div>
+      <button type="submit" class="btn-primary btn-full" style="margin-top: 1rem;">Login to Dashboard</button>
+    </form>
+    
+    <a href="/" style="display: inline-block; margin-top: 2rem; color: var(--gray-400); font-size: .85rem;">← Back to Home</a>
+  </div>
+</div>
+{% endblock %}

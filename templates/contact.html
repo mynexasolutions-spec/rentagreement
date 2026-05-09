@@ -1,0 +1,169 @@
+{% extends 'base.html' %}
+
+{% block title %}Contact Us – Pune Online Agreement{% endblock %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/pages.css') }}">
+  <style>
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+    .contact-info-side h2 {
+      font-family: var(--font-display);
+      font-size: 2.2rem;
+      color: var(--teal-900);
+      margin-bottom: 1.5rem;
+    }
+    .contact-info-side p {
+      color: var(--gray-600);
+      margin-bottom: 2.5rem;
+      line-height: 1.6;
+    }
+    .contact-methods {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+    .method-item {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+    .method-icon {
+      width: 42px;
+      height: 42px;
+      background: var(--teal-50);
+      color: var(--teal-600);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+    .method-text h4 {
+      font-size: .75rem;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      color: var(--gray-400);
+      margin-bottom: .15rem;
+    }
+    .method-text p, .method-text a {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--teal-900);
+      text-decoration: none;
+    }
+    .contact-form-side {
+      background: white;
+      padding: 3rem;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+    }
+    @media (max-width: 992px) {
+      .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+    }
+  </style>
+{% endblock %}
+
+{% block content %}
+<section class="page-hero">
+  <img src="https://images.unsplash.com/photo-1523966211575-eb4a01e7dd51?w=1400&q=80" alt="Contact Us" class="page-hero-img">
+  <div class="page-hero-overlay"></div>
+  <div class="page-hero-content">
+    <div class="section-label light">Get in Touch</div>
+    <h1>Contact <em>Our Team</em></h1>
+    <p>Available 24/7 for all your rent agreement needs</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="contact-grid">
+      <div class="contact-info-side">
+        <h2>Visit our office or reach out directly</h2>
+        <p>We provide doorstep service across Pune and Mumbai. Our experts are ready to assist you with drafting, biometrics, and government registration.</p>
+        
+        <div class="contact-methods">
+          <div class="method-item">
+            <div class="method-icon">📞</div>
+            <div class="method-text">
+              <h4>Call / WhatsApp</h4>
+              <p><a href="tel:+917559165066">+91 75591 65066</a></p>
+            </div>
+          </div>
+          <div class="method-item">
+            <div class="method-icon">📍</div>
+            <div class="method-text">
+              <h4>Pune Office</h4>
+              <p><a href="https://maps.app.goo.gl/61bxPtuGXSh5PquA9" target="_blank">Gera Enclave, A2, Viman Nagar, Pune 411014</a></p>
+            </div>
+          </div>
+          <div class="method-item">
+            <div class="method-icon">🕐</div>
+            <div class="method-text">
+              <h4>Working Hours</h4>
+              <p>Open 24 Hours, 7 Days a week</p>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top: 3rem; border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-md);">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3782.137132630417!2d73.9143637!3d18.567855299999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2c156e8279b9d%3A0x806074fc4dddf4e1!2sOnline%20Rent%20Agreement%20Services%20Pune%20East!5e0!3m2!1sen!2sde!4v1778344462007!5m2!1sen!2sde" width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+      </div>
+
+      <div class="contact-form-side">
+        <h3 style="margin-bottom: 1.5rem; font-family: var(--font-display); color: var(--teal-900);">Quick Inquiry</h3>
+        <form id="contactForm" onsubmit="handleContactSubmit(event)">
+          <div class="form-group">
+            <label>Your Name</label>
+            <input type="text" name="name" placeholder="Enter your full name" required>
+          </div>
+          <div class="form-group">
+            <label>Phone Number</label>
+            <input type="tel" name="phone" placeholder="Enter 10-digit number" required>
+          </div>
+          <div class="form-group">
+            <label>Service Needed</label>
+            <select name="service">
+              <option>Residential Agreement</option>
+              <option>Commercial Agreement</option>
+              <option>Biometric Only</option>
+              <option>Consultation</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Message (Optional)</label>
+            <textarea name="message" rows="3" placeholder="How can we help you?"></textarea>
+          </div>
+          <button type="submit" class="btn-primary btn-full" style="margin-top: 1rem;">
+            Send on WhatsApp
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function handleContactSubmit(e) {
+  e.preventDefault();
+  const form = e.target;
+  const name = form.name.value;
+  const phone = form.phone.value;
+  const service = form.service.value;
+  const message = form.message.value;
+  
+  const text = `Hello Pune Online Agreement,%0A%0AI have a quick inquiry:%0A*Name:* ${name}%0A*Phone:* ${phone}%0A*Service:* ${service}%0A*Message:* ${message}`;
+  const whatsappUrl = `https://wa.me/917559165066?text=${text}`;
+  
+  window.open(whatsappUrl, '_blank');
+}
+</script>
+{% endblock %}

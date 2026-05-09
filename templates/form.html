@@ -1,0 +1,127 @@
+{% extends 'base.html' %}
+
+{% block title %}Online Form – RentEase{% endblock %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/pages.css') }}">
+{% endblock %}
+
+{% block content %}
+<section class="page-hero">
+  <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=1400&q=80" alt="Online form" class="page-hero-img">
+  <div class="page-hero-overlay"></div>
+  <div class="page-hero-content">
+    <div class="section-label light">Step 1</div>
+    <h1>Online <em>Submission Form</em></h1>
+    <p>Fill in your details and we'll start drafting immediately</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="online-form-layout">
+      <div class="online-form-wrap">
+        <h2>Agreement Details</h2>
+        <form id="onlineForm">
+          <div class="form-section-title">Owner Information</div>
+          <div class="form-row">
+            <div class="form-group"><label>Owner Full Name *</label><input type="text" name="owner_name" required></div>
+            <div class="form-group"><label>Owner Phone *</label><input type="tel" name="owner_phone" required></div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label>Owner Aadhaar No.</label><input type="text" name="owner_aadhaar" placeholder="XXXX XXXX XXXX"></div>
+            <div class="form-group"><label>Owner PAN No.</label><input type="text" name="owner_pan" placeholder="ABCDE1234F"></div>
+          </div>
+
+          <div class="form-section-title">Tenant Information</div>
+          <div class="form-row">
+            <div class="form-group"><label>Tenant Full Name *</label><input type="text" name="tenant_name" required></div>
+            <div class="form-group"><label>Tenant Phone *</label><input type="tel" name="tenant_phone" required></div>
+          </div>
+
+          <div class="form-section-title">Property Details</div>
+          <div class="form-row">
+            <div class="form-group"><label>Property Address *</label><input type="text" name="property_address" required></div>
+            <div class="form-group"><label>City *</label>
+              <select name="city">
+                <option>Pune</option><option>Mumbai</option><option>Thane</option>
+                <option>Nagpur</option><option>Nashik</option><option>Other</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label>Monthly Rent (₹) *</label><input type="number" name="rent" required></div>
+            <div class="form-group"><label>Security Deposit (₹)</label><input type="number" name="deposit"></div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label>Agreement Start Date</label><input type="date" name="start_date"></div>
+            <div class="form-group"><label>Duration</label>
+              <select name="duration">
+                <option>11 Months</option><option>12 Months</option>
+                <option>24 Months</option><option>36 Months</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group"><label>Agreement Type</label>
+            <select name="agreement_type">
+              <option>Residential</option><option>Commercial</option>
+            </select>
+          </div>
+          <div class="form-group"><label>Special Terms / Clauses (optional)</label>
+            <textarea name="special_terms" rows="4" placeholder="Any specific terms or clauses you'd like included..."></textarea>
+          </div>
+
+          <button type="submit" class="btn-primary btn-full">Submit for Drafting</button>
+          <div id="formMsg" class="form-msg"></div>
+        </form>
+      </div>
+
+      <div class="online-form-sidebar">
+        <div class="sidebar-card">
+          <img src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=400&q=80" alt="Support team">
+          <div class="sidebar-card-body">
+            <h4>Need Help?</h4>
+            <p>Our team is available 8AM–9PM, 7 days a week to guide you through the process.</p>
+            <a href="tel:+917559165066" class="btn-primary" style="display:block;text-align:center;margin-top:1rem;">Call Us Now</a>
+          </div>
+        </div>
+        <div class="sidebar-info">
+          <h4>What Happens Next?</h4>
+          <div class="sidebar-steps">
+            <div class="s-step"><span>1</span><p>We review your submission and begin drafting within 2 hours.</p></div>
+            <div class="s-step"><span>2</span><p>You receive a draft for review and approval via WhatsApp/email.</p></div>
+            <div class="s-step"><span>3</span><p>An executive visits for biometric verification at your convenience.</p></div>
+            <div class="s-step"><span>4</span><p>Registered agreement delivered digitally within 3–4 working days.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.getElementById('onlineForm')?.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const btn = e.target.querySelector('button[type="submit"]');
+  btn.textContent = 'Submitting...';
+  btn.disabled = true;
+  const data = {};
+  new FormData(e.target).forEach((v, k) => data[k] = v);
+  try {
+    const res = await fetch('/submit-form', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(data) });
+    const result = await res.json();
+    document.getElementById('formMsg').textContent = result.message;
+    document.getElementById('formMsg').className = 'form-msg success';
+    e.target.reset();
+  } catch {
+    document.getElementById('formMsg').textContent = 'Error submitting. Please call us directly.';
+    document.getElementById('formMsg').className = 'form-msg error';
+  } finally {
+    btn.textContent = 'Submit for Drafting';
+    btn.disabled = false;
+  }
+});
+</script>
+{% endblock %}
