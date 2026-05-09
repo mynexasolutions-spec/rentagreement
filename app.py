@@ -120,8 +120,14 @@ def logout():
 @app.route('/admin')
 @login_required
 def admin():
-    entries = FormEntry.query.order_by(FormEntry.created_at.desc()).all()
-    return render_template('admin.html', entries=entries)
+    try:
+        entries = FormEntry.query.order_by(FormEntry.created_at.desc()).all()
+        return render_template('admin.html', entries=entries)
+    except Exception as e:
+        # If column is missing, try to auto-update
+        if 'UndefinedColumn' in str(e) or 'no such column' in str(e):
+            return redirect(url_for('update_db'))
+        raise e
 
 @app.after_request
 def add_header(response):
