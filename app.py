@@ -33,6 +33,18 @@ class FormEntry(db.Model):
     type = db.Column(db.String(50))
     city = db.Column(db.String(50))
     message = db.Column(db.Text)
+    
+    # New detailed fields
+    owner_aadhaar = db.Column(db.String(20))
+    owner_pan = db.Column(db.String(20))
+    tenant_name = db.Column(db.String(100))
+    tenant_phone = db.Column(db.String(20))
+    property_address = db.Column(db.Text)
+    rent = db.Column(db.String(20))
+    deposit = db.Column(db.String(20))
+    start_date = db.Column(db.String(50))
+    duration = db.Column(db.String(50))
+    
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
 # Create tables within app context
@@ -64,11 +76,22 @@ def submit_form():
     data = request.json
     try:
         new_entry = FormEntry(
-            name=data.get('name') or data.get('owner_name'),
-            phone=data.get('phone') or data.get('owner_phone'),
-            type=data.get('type') or data.get('agreement_type'),
+            name=data.get('owner_name') or data.get('name'),
+            phone=data.get('owner_phone') or data.get('phone'),
+            type=data.get('agreement_type') or data.get('type'),
             city=data.get('city'),
-            message=data.get('message') or data.get('special_terms')
+            message=data.get('special_terms') or data.get('message'),
+            
+            # New mapping
+            owner_aadhaar=data.get('owner_aadhaar'),
+            owner_pan=data.get('owner_pan'),
+            tenant_name=data.get('tenant_name'),
+            tenant_phone=data.get('tenant_phone'),
+            property_address=data.get('property_address'),
+            rent=data.get('rent'),
+            deposit=data.get('deposit'),
+            start_date=data.get('start_date'),
+            duration=data.get('duration')
         )
         db.session.add(new_entry)
         db.session.commit()

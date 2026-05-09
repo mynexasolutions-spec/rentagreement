@@ -146,7 +146,16 @@
               data-city="{{ entry.city or '-' }}" 
               data-type="{{ entry.type }}" 
               data-date="{{ entry.created_at.strftime('%d %b %Y, %H:%M') }}" 
-              data-msg="{{ entry.message }}">
+              data-msg="{{ entry.message }}"
+              data-owner_aadhaar="{{ entry.owner_aadhaar or '-' }}"
+              data-owner_pan="{{ entry.owner_pan or '-' }}"
+              data-tenant_name="{{ entry.tenant_name or '-' }}"
+              data-tenant_phone="{{ entry.tenant_phone or '-' }}"
+              data-property_address="{{ entry.property_address or '-' }}"
+              data-rent="{{ entry.rent or '-' }}"
+              data-deposit="{{ entry.deposit or '-' }}"
+              data-start_date="{{ entry.start_date or '-' }}"
+              data-duration="{{ entry.duration or '-' }}">
             <td>{{ entry.created_at.strftime('%d %b, %H:%M') }}</td>
             <td><strong>{{ entry.name }}</strong></td>
             <td><a href="tel:{{ entry.phone }}" style="color:var(--teal-600)">{{ entry.phone }}</a></td>
@@ -179,7 +188,16 @@
            data-city="{{ entry.city or '-' }}" 
            data-type="{{ entry.type }}" 
            data-date="{{ entry.created_at.strftime('%d %b %Y, %H:%M') }}" 
-           data-msg="{{ entry.message }}">
+           data-msg="{{ entry.message }}"
+           data-owner_aadhaar="{{ entry.owner_aadhaar or '-' }}"
+           data-owner_pan="{{ entry.owner_pan or '-' }}"
+           data-tenant_name="{{ entry.tenant_name or '-' }}"
+           data-tenant_phone="{{ entry.tenant_phone or '-' }}"
+           data-property_address="{{ entry.property_address or '-' }}"
+           data-rent="{{ entry.rent or '-' }}"
+           data-deposit="{{ entry.deposit or '-' }}"
+           data-start_date="{{ entry.start_date or '-' }}"
+           data-duration="{{ entry.duration or '-' }}">
         <div class="card-header">
           <div>
             <strong>{{ entry.created_at.strftime('%d %b %Y') }}</strong>
@@ -292,29 +310,74 @@ function showDetails(el) {
   body.innerHTML = `
     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
       <div class="detail-group">
-        <label>Full Name</label>
-        <p>${data.name}</p>
-      </div>
-      <div class="detail-group">
         <label>Submission Date</label>
         <p>${data.date}</p>
-      </div>
-      <div class="detail-group">
-        <label>Phone Number</label>
-        <p><a href="tel:${data.phone}" style="color:var(--teal-600)">${data.phone}</a></p>
-      </div>
-      <div class="detail-group">
-        <label>City</label>
-        <p>${data.city}</p>
       </div>
       <div class="detail-group">
         <label>Agreement Type</label>
         <p>${data.type}</p>
       </div>
     </div>
+
+    <div class="form-section-title" style="font-size: 1rem; margin: 1.5rem 0 1rem; color: var(--teal-700); border-bottom: 1px solid var(--teal-100); padding-bottom: .5rem;">Owner Details</div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+      <div class="detail-group">
+        <label>Owner Name</label>
+        <p>${data.name}</p>
+      </div>
+      <div class="detail-group">
+        <label>Owner Phone</label>
+        <p><a href="tel:${data.phone}" style="color:var(--teal-600)">${data.phone}</a></p>
+      </div>
+      <div class="detail-group">
+        <label>Aadhaar No.</label>
+        <p>${data.owner_aadhaar}</p>
+      </div>
+      <div class="detail-group">
+        <label>PAN No.</label>
+        <p>${data.owner_pan}</p>
+      </div>
+    </div>
+
+    <div class="form-section-title" style="font-size: 1rem; margin: 1.5rem 0 1rem; color: var(--teal-700); border-bottom: 1px solid var(--teal-100); padding-bottom: .5rem;">Tenant Details</div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+      <div class="detail-group">
+        <label>Tenant Name</label>
+        <p>${data.tenant_name}</p>
+      </div>
+      <div class="detail-group">
+        <label>Tenant Phone</label>
+        <p><a href="tel:${data.tenant_phone}" style="color:var(--teal-600)">${data.tenant_phone}</a></p>
+      </div>
+    </div>
+
+    <div class="form-section-title" style="font-size: 1rem; margin: 1.5rem 0 1rem; color: var(--teal-700); border-bottom: 1px solid var(--teal-100); padding-bottom: .5rem;">Property & Rent Details</div>
+    <div class="detail-group">
+      <label>Property Address</label>
+      <p>${data.property_address}</p>
+    </div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+      <div class="detail-group">
+        <label>Monthly Rent</label>
+        <p>₹${data.rent}</p>
+      </div>
+      <div class="detail-group">
+        <label>Security Deposit</label>
+        <p>₹${data.deposit}</p>
+      </div>
+      <div class="detail-group">
+        <label>Start Date</label>
+        <p>${data.start_date}</p>
+      </div>
+      <div class="detail-group">
+        <label>Duration</label>
+        <p>${data.duration}</p>
+      </div>
+    </div>
+
     <div class="detail-group" style="margin-top: 1rem;">
-      <label>Message / Requirements</label>
-      <div class="detail-msg">${data.msg || 'No message provided.'}</div>
+      <label>Special Terms / Message</label>
+      <div class="detail-msg">${data.msg || 'No special terms provided.'}</div>
     </div>
   `;
   document.getElementById('detailsModal').classList.add('open');
