@@ -107,5 +107,13 @@ def add_header(response):
         response.cache_control.max_age = 31536000
     return response
 
+@app.route('/admin/delete/<int:id>', methods=['POST'])
+@login_required
+def delete_entry(id):
+    entry = FormEntry.query.get_or_404(id)
+    db.session.delete(entry)
+    db.session.commit()
+    return redirect(url_for('admin'))
+
 if __name__ == '__main__':
     app.run(debug=True, port=5000)

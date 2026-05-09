@@ -135,24 +135,35 @@
             <th>Contact</th>
             <th>City</th>
             <th>Type</th>
-            <th>Details</th>
+            <th style="width: 150px;">Actions</th>
           </tr>
         </thead>
         <tbody>
           {% for entry in entries %}
-          <tr>
+          <tr class="admin-row" 
+              data-name="{{ entry.name }}" 
+              data-phone="{{ entry.phone }}" 
+              data-city="{{ entry.city or '-' }}" 
+              data-type="{{ entry.type }}" 
+              data-date="{{ entry.created_at.strftime('%d %b %Y, %H:%M') }}" 
+              data-msg="{{ entry.message }}">
             <td>{{ entry.created_at.strftime('%d %b, %H:%M') }}</td>
             <td><strong>{{ entry.name }}</strong></td>
-            <td>
-              <a href="tel:{{ entry.phone }}" style="color:var(--teal-600)">{{ entry.phone }}</a>
-            </td>
+            <td><a href="tel:{{ entry.phone }}" style="color:var(--teal-600)">{{ entry.phone }}</a></td>
             <td>{{ entry.city or '-' }}</td>
             <td>
               <span class="type-badge {% if 'Commercial' in entry.type %}type-comm{% elif 'Residential' in entry.type %}type-res{% else %}type-ren{% endif %}">
                 {{ entry.type }}
               </span>
             </td>
-            <td title="{{ entry.message }}">{{ entry.message[:40] }}{% if entry.message|length > 40 %}...{% endif %}</td>
+            <td>
+              <div style="display: flex; gap: .5rem;">
+                <button class="btn-view" onclick="showDetails(this.closest('tr'))" title="View Details">👁️</button>
+                <form action="{{ url_for('delete_entry', id=entry.id) }}" method="POST" onsubmit="return confirmDelete()">
+                  <button type="submit" class="btn-delete" title="Delete Entry">🗑️</button>
+                </form>
+              </div>
+            </td>
           </tr>
           {% endfor %}
         </tbody>
@@ -162,7 +173,13 @@
     <!-- Mobile Card View -->
     <div class="entry-cards">
       {% for entry in entries %}
-      <div class="entry-card">
+      <div class="entry-card admin-row"
+           data-name="{{ entry.name }}" 
+           data-phone="{{ entry.phone }}" 
+           data-city="{{ entry.city or '-' }}" 
+           data-type="{{ entry.type }}" 
+           data-date="{{ entry.created_at.strftime('%d %b %Y, %H:%M') }}" 
+           data-msg="{{ entry.message }}">
         <div class="card-header">
           <div>
             <strong>{{ entry.created_at.strftime('%d %b %Y') }}</strong>
@@ -180,12 +197,13 @@
           <strong>City</strong>
           <p>{{ entry.city or 'Not Specified' }}</p>
         </div>
-        {% if entry.message %}
-        <div class="card-row">
-          <strong>Message</strong>
-          <p>{{ entry.message }}</p>
+        <div style="display: flex; gap: 1rem; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--gray-100);">
+          <button class="btn-primary" style="padding: .5rem 1rem; font-size: .8rem;" 
+                  onclick="showDetails(this.closest('.entry-card'))">View Full Details</button>
+          <form action="{{ url_for('delete_entry', id=entry.id) }}" method="POST" onsubmit="return confirmDelete()">
+            <button type="submit" style="background: #fee2e2; color: #b91c1c; border: none; padding: .5rem 1rem; border-radius: 8px; font-weight: 600; font-size: .8rem; cursor: pointer;">Delete</button>
+          </form>
         </div>
-        {% endif %}
       </div>
       {% endfor %}
     </div>
@@ -198,4 +216,123 @@
     {% endif %}
   </div>
 </div>
+
+<!-- DETAILS MODAL -->
+<div id="detailsModal" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3>Inquiry Details</h3>
+      <button class="close-modal" onclick="closeModal()">&times;</button>
+    </div>
+    <div class="modal-body" id="modalBody">
+      <!-- Content injected by JS -->
+    </div>
+  </div>
+</div>
+
+<style>
+  .btn-view, .btn-delete {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: 1px solid var(--gray-200);
+    background: white;
+    transition: var(--transition);
+  }
+  .btn-view:hover { background: var(--teal-50); border-color: var(--teal-500); }
+  .btn-delete:hover { background: #fee2e2; border-color: #f87171; }
+
+  /* Modal Styles */
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    inset: 0;
+    background: rgba(10,46,53,.8);
+    backdrop-filter: blur(4px);
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+  }
+  .modal.open { display: flex; }
+  .modal-content {
+    background: white;
+    width: 100%;
+    max-width: 600px;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+  }
+  .modal-header {
+    padding: 1.5rem;
+    background: var(--teal-50);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--teal-100);
+  }
+  .modal-header h3 { margin: 0; font-family: var(--font-display); color: var(--teal-900); }
+  .close-modal { background: none; border: none; font-size: 2rem; cursor: pointer; color: var(--gray-400); }
+  .modal-body { padding: 2rem; }
+  
+  .detail-group { margin-bottom: 1.5rem; }
+  .detail-group label { display: block; font-size: .75rem; color: var(--gray-400); text-transform: uppercase; margin-bottom: .25rem; font-weight: 700; }
+  .detail-group p { margin: 0; font-size: 1.1rem; color: var(--teal-900); font-weight: 500; }
+  .detail-msg { background: var(--off-white); padding: 1rem; border-radius: 12px; border: 1px solid var(--gray-200); white-space: pre-wrap; font-size: .95rem; }
+</style>
+
+<script>
+function showDetails(el) {
+  const data = el.dataset;
+  const body = document.getElementById('modalBody');
+  body.innerHTML = `
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+      <div class="detail-group">
+        <label>Full Name</label>
+        <p>${data.name}</p>
+      </div>
+      <div class="detail-group">
+        <label>Submission Date</label>
+        <p>${data.date}</p>
+      </div>
+      <div class="detail-group">
+        <label>Phone Number</label>
+        <p><a href="tel:${data.phone}" style="color:var(--teal-600)">${data.phone}</a></p>
+      </div>
+      <div class="detail-group">
+        <label>City</label>
+        <p>${data.city}</p>
+      </div>
+      <div class="detail-group">
+        <label>Agreement Type</label>
+        <p>${data.type}</p>
+      </div>
+    </div>
+    <div class="detail-group" style="margin-top: 1rem;">
+      <label>Message / Requirements</label>
+      <div class="detail-msg">${data.msg || 'No message provided.'}</div>
+    </div>
+  `;
+  document.getElementById('detailsModal').classList.add('open');
+}
+
+function closeModal() {
+  document.getElementById('detailsModal').classList.remove('open');
+}
+
+function confirmDelete() {
+  return confirm('Are you sure you want to permanently delete this inquiry? This action cannot be undone.');
+}
+
+window.onclick = function(event) {
+  const modal = document.getElementById('detailsModal');
+  if (event.target == modal) {
+    closeModal();
+  }
+}
+</script>
 {% endblock %}
