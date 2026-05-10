@@ -88,7 +88,7 @@ ul { list-style: none; }
   }
 }
 .section-title em {
-  font-style: italic;
+  font-style: normal;
   color: var(--teal-600);
 }
 

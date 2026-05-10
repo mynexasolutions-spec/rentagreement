@@ -12,7 +12,14 @@
   border-radius: 8px;
 }
 .footer-brand .logo-text { color: white; }
-.footer-brand .logo-mark { background: rgba(255,255,255,.15); }
+.footer-brand .logo-img { 
+  width: 120px; 
+  height: 120px; 
+  object-fit: contain; 
+  background: white;
+  padding: 10px;
+  border-radius: 15px;
+}
 .footer-brand p {
   color: var(--gray-400);
   font-size: .87rem;

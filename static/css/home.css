@@ -53,7 +53,7 @@
   margin-bottom: 1.25rem;
 }
 .hero-content h1 em {
-  font-style: italic;
+  font-style: normal;
   color: var(--amber-300);
 }
 .hero-content p {
@@ -194,7 +194,7 @@
   margin-bottom: 1rem;
   line-height: 1.2;
 }
-.split-content h2 em { font-style: italic; color: var(--teal-600); }
+.split-content h2 em { font-style: normal; color: var(--teal-600); }
 .lead-text {
   font-size: 1.05rem;
   color: var(--gray-600);
@@ -305,7 +305,7 @@
   margin-bottom: 1rem;
   line-height: 1.2;
 }
-.commercial-content h2 em { font-style: italic; color: var(--teal-600); }
+.commercial-content h2 em { font-style: normal; color: var(--teal-600); }
 .commercial-content p {
   color: var(--gray-600);
   line-height: 1.7;
@@ -413,7 +413,7 @@
   font-size: .9rem;
   line-height: 1.7;
   margin-bottom: 1.25rem;
-  font-style: italic;
+  font-style: normal;
 }
 .testi-author {
   display: flex;
@@ -494,7 +494,7 @@
   margin-bottom: 2.5rem;
   line-height: 1.2;
 }
-.importance-content h2 em { font-style: italic; color: var(--teal-400); }
+.importance-content h2 em { font-style: normal; color: var(--teal-400); }
 .importance-cards {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -640,7 +640,7 @@
   margin-bottom: 1rem;
   line-height: 1.2;
 }
-.contact-info h2 em { font-style: italic; color: var(--teal-600); }
+.contact-info h2 em { font-style: normal; color: var(--teal-600); }
 .contact-info > p {
   color: var(--gray-600);
   margin-bottom: 2rem;
