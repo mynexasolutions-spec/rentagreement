@@ -1,11 +1,12 @@
 /* ===== TOP BAR ===== */
 .topbar {
-  background: var(--teal-900);
-  color: var(--gray-400);
-  font-size: .8rem;
+  background: var(--zinc-950);
+  color: var(--zinc-400);
+  font-size: .75rem;
   font-weight: 500;
-  letter-spacing: .03em;
-  padding: .5rem 0;
+  letter-spacing: .05em;
+  padding: .6rem 0;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
 }
 .topbar-inner {
   max-width: 1400px;
@@ -24,7 +25,7 @@
   z-index: 100;
   background: rgba(255,255,255,.92);
   backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--gray-200);
+  border-bottom: 1px solid var(--zinc-200);
   transition: var(--transition);
 }
 .navbar.scrolled {
@@ -44,7 +45,7 @@
   align-items: center;
   gap: .75rem;
   font-family: var(--font-display);
-  color: var(--teal-900);
+  color: var(--zinc-900);
 }
 .logo-img {
   width: 140px;
@@ -54,11 +55,12 @@
   margin: -20px 0; /* Centers the oversized logo within the compact navbar */
 }
 .logo-text {
-  font-size: 1.6rem;
+  font-size: 1.45rem;
   font-weight: 700;
+  letter-spacing: 0.04em;
 }
 .logo-text em {
-  color: var(--teal-500);
+  color: var(--primary);
   font-style: normal;
 }
 .nav-links {
@@ -70,12 +72,14 @@
 .nav-links li a {
   padding: .6rem 1.2rem;
   border-radius: 8px;
-  font-size: 1rem;
-  font-weight: 600;
-  color: var(--teal-900);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gray-700);
   transition: var(--transition);
 }
-.nav-links li a:hover { background: var(--teal-50); color: var(--teal-700); }
+.nav-links li a:hover { background: var(--zinc-50); color: var(--primary); }
 .nav-cta {
   display: flex;
   align-items: center;
@@ -100,16 +104,113 @@
 }
 .hamburger span {
   width: 24px; height: 2px;
-  background: var(--teal-900);
+  background: var(--zinc-900);
   border-radius: 2px;
   transition: var(--transition);
 }
 
 @media (max-width: 768px) {
-  .topbar-inner { justify-content: center; flex-wrap: wrap; gap: 1rem; font-size: .75rem; }
-  .nav-links { display: none; flex-direction: column; position: absolute; top: 84px; left: 0; right: 0; background: white; padding: 1rem; border-top: 1px solid var(--gray-200); box-shadow: var(--shadow-md); gap: 0; }
-  .nav-links.open { display: flex; }
-  .nav-links li a { padding: .75rem 1rem; border-radius: 8px; display: block; }
-  .nav-cta { display: none; }
+  .nav-links, .nav-cta { display: none; }
+  .logo-text { display: none; }
   .hamburger { display: flex; }
+
+  .mobile-drawer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: white !important;
+    z-index: 9999;
+    display: none;
+    flex-direction: column;
+  }
+  .mobile-drawer.open { 
+    display: flex;
+  }
+  
+  .drawer-header {
+    padding: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--zinc-100);
+  }
+  .drawer-brand {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--primary);
+    font-family: var(--font-display);
+  }
+  .drawer-brand em { font-style: normal; color: var(--zinc-900); }
+  .drawer-close {
+    background: none;
+    border: none;
+    font-size: 2rem;
+    color: var(--zinc-400);
+    cursor: pointer;
+    line-height: 1;
+  }
+  
+  .drawer-body {
+    flex: 1;
+    padding: 2rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+  }
+  .drawer-links {
+    list-style: none;
+    margin-bottom: auto;
+  }
+  .drawer-links li { margin-bottom: 1.5rem; }
+  .drawer-links li a {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--zinc-800);
+    text-decoration: none;
+    transition: var(--transition);
+  }
+  .drawer-links li a:hover { color: var(--primary); }
+  
+  .drawer-footer {
+    padding-top: 2rem;
+    border-top: 1px solid var(--zinc-100);
+  }
+  .drawer-phone {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    color: var(--zinc-600);
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    text-decoration: none;
+  }
+  .drawer-phone svg { color: var(--zinc-400); }
+
+  .drawer-contact-icons {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 2rem;
+    padding-bottom: 2rem;
+  }
+  .drawer-icon-btn {
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    box-shadow: var(--shadow-md);
+    transition: var(--transition);
+  }
+  .drawer-icon-btn.float-call { background: var(--zinc-900); }
+  .drawer-icon-btn.float-wa { background: #25d366; }
+  .drawer-icon-btn:active { transform: scale(0.95); }
+}
+
+/* Hide global floating contact when drawer is open */
+body:has(.mobile-drawer.open) .floating-contact {
+  opacity: 0;
+  pointer-events: none;
 }

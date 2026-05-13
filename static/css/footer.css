@@ -1,5 +1,5 @@
 /* ===== FOOTER ===== */
-.footer { background: var(--teal-900); }
+.footer { background: var(--zinc-950); border-top: 4px solid var(--primary); }
 .footer-top {
   max-width: 1400px;
   margin: 0 auto;
@@ -12,6 +12,7 @@
   border-radius: 8px;
 }
 .footer-brand .logo-text { color: white; }
+.footer-brand .logo-text em { color: var(--primary); }
 .footer-brand .logo-img { 
   width: 120px; 
   height: 120px; 
@@ -21,9 +22,9 @@
   border-radius: 15px;
 }
 .footer-brand p {
-  color: var(--gray-400);
+  color: var(--zinc-400);
   font-size: .87rem;
-  margin-top: 1rem;
+  margin-top: 1.5rem;
   line-height: 1.6;
 }
 .social-links {
@@ -35,8 +36,8 @@
   width: 36px;
   height: 36px;
   border-radius: 8px;
-  background: rgba(255,255,255,.08);
-  color: var(--gray-400);
+  background: rgba(255,255,255,.05);
+  color: var(--zinc-400);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -45,15 +46,15 @@
   text-transform: uppercase;
   transition: var(--transition);
 }
-.social-links a:hover { background: var(--teal-600); color: white; }
+.social-links a:hover { background: var(--primary); color: white; }
 .footer-links h4,
 .footer-cities h4,
 .footer-contact h4 {
-  color: white;
-  font-size: .85rem;
+  color: var(--primary);
+  font-family: var(--font-display);
+  font-size: 1.1rem;
   font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: .08em;
+  letter-spacing: 0.04em;
   margin-bottom: 1.25rem;
 }
 .footer-links ul,
@@ -62,23 +63,23 @@
   flex-direction: column;
   gap: .5rem;
 }
-.footer-links li a {
-  color: var(--gray-400);
+.footer-links li a,
+.footer-cities li {
+  color: var(--zinc-400);
   font-size: .87rem;
   transition: var(--transition);
 }
-.footer-links li a:hover { color: var(--teal-300); }
-.footer-cities li {
-  color: var(--gray-400);
-  font-size: .87rem;
+.footer-links li a:hover { color: var(--primary); }
+.footer-contact p,
+.footer-contact a,
+.footer-bottom p,
+.footer-credit p {
+  color: var(--zinc-500);
+  font-size: .82rem;
 }
-.footer-contact p {
-  color: var(--gray-400);
-  font-size: .87rem;
-  margin-bottom: .5rem;
-}
-.footer-contact a { color: var(--teal-400); transition: var(--transition); }
-.footer-contact a:hover { color: var(--teal-300); }
+.footer-contact a:hover { color: var(--primary); }
+.footer-links li a:hover,
+.footer-contact a:hover { color: var(--primary); }
 .addr { line-height: 1.5; margin-top: .75rem; }
 .footer-bottom {
   border-top: 1px solid rgba(255,255,255,.08);
@@ -90,14 +91,6 @@
   margin: 0 auto;
   flex-wrap: wrap;
   gap: 1.5rem;
-}
-.footer-bottom p {
-  color: var(--gray-400);
-  font-size: .82rem;
-}
-.footer-credit p {
-  font-size: .85rem;
-  color: var(--gray-400);
 }
 
 @media (max-width: 1024px) {

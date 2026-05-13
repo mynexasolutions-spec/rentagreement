@@ -19,12 +19,13 @@
   }
   .admin-header h1 {
     font-family: var(--font-display);
-    color: var(--teal-900);
+    color: var(--zinc-900);
     margin: 0;
+    font-weight: 700;
   }
   .entry-count {
-    background: var(--teal-100);
-    color: var(--teal-700);
+    background: var(--primary-light);
+    color: var(--zinc-700);
     padding: .4rem 1rem;
     border-radius: 100px;
     font-weight: 700;
@@ -45,7 +46,7 @@
     text-align: left;
   }
   .admin-table th {
-    background: var(--teal-900);
+    background: var(--zinc-900);
     color: white;
     padding: 1.25rem 1.5rem;
     font-weight: 600;
@@ -61,7 +62,7 @@
     font-size: .95rem;
   }
   .admin-table tr:last-child td { border-bottom: none; }
-  .admin-table tr:hover { background: var(--teal-50); }
+  .admin-table tr:hover { background: var(--zinc-50); }
 
   /* Status Badge */
   .type-badge {
@@ -73,7 +74,7 @@
     text-transform: uppercase;
   }
   .type-res { background: #d1fae5; color: #065f46; }
-  .type-comm { background: #e0f2fe; color: #0369a1; }
+  .type-comm { background: #dcfce7; color: #166534; }
   .type-ren { background: #fef3c7; color: #92400e; }
 
   /* Card View for Mobile */
@@ -93,8 +94,8 @@
     padding-bottom: .75rem;
   }
   .card-row { margin-bottom: .75rem; display: flex; flex-direction: column; gap: .25rem; }
-  .card-row strong { font-size: .75rem; color: var(--gray-400); text-transform: uppercase; }
-  .card-row p { margin: 0; font-weight: 500; color: var(--teal-900); }
+  .card-row strong { font-size: .75rem; color: var(--zinc-400); text-transform: uppercase; }
+  .card-row p { margin: 0; font-weight: 500; color: var(--zinc-900); }
 
   @media (max-width: 1024px) {
     .table-container { display: none; }
@@ -105,7 +106,7 @@
   .empty-state {
     padding: 5rem 2rem;
     text-align: center;
-    color: var(--gray-400);
+    color: var(--zinc-400);
   }
   .empty-state svg { margin-bottom: 1rem; opacity: .3; }
 </style>
@@ -121,7 +122,7 @@
       </div>
       <div style="display: flex; align-items: center; gap: 1rem;">
         <div class="entry-count">{{ entries|length }} Total Entries</div>
-        <a href="/logout" class="btn-ghost" style="color: var(--teal-700); border-color: var(--teal-200); padding: .4rem 1rem; font-size: .85rem;">Logout</a>
+        <a href="/logout" class="btn-outline" style="color: var(--primary); border-color: var(--primary); padding: .4rem 1rem; font-size: .85rem; border-radius: 4px;">Logout</a>
       </div>
     </div>
 
@@ -261,7 +262,7 @@
     background: white;
     transition: var(--transition);
   }
-  .btn-view:hover { background: var(--teal-50); border-color: var(--teal-500); }
+  .btn-view:hover { background: var(--zinc-50); border-color: var(--primary); }
   .btn-delete:hover { background: #fee2e2; border-color: #f87171; }
 
   /* Modal Styles */
@@ -270,7 +271,7 @@
     position: fixed;
     z-index: 1000;
     inset: 0;
-    background: rgba(10,46,53,.8);
+    background: rgba(15, 23, 42, 0.8);
     backdrop-filter: blur(4px);
     align-items: center;
     justify-content: center;
@@ -292,14 +293,14 @@
   }
   .modal-header {
     padding: 1.5rem;
-    background: var(--teal-50);
+    background: var(--zinc-50);
     display: flex;
     justify-content: space-between;
     align-items: center;
     border-bottom: 1px solid var(--teal-100);
     flex-shrink: 0;
   }
-  .modal-header h3 { margin: 0; font-family: var(--font-display); color: var(--teal-900); }
+  .modal-header h3 { margin: 0; font-family: var(--font-display); color: var(--zinc-900); }
   .close-modal { background: none; border: none; font-size: 2rem; cursor: pointer; color: var(--gray-400); }
   .modal-body { 
     padding: 2rem; 
@@ -307,9 +308,9 @@
   }
   
   .detail-group { margin-bottom: 1.5rem; }
-  .detail-group label { display: block; font-size: .75rem; color: var(--gray-400); text-transform: uppercase; margin-bottom: .25rem; font-weight: 700; }
-  .detail-group p { margin: 0; font-size: 1.1rem; color: var(--teal-900); font-weight: 500; }
-  .detail-msg { background: var(--off-white); padding: 1rem; border-radius: 12px; border: 1px solid var(--gray-200); white-space: pre-wrap; font-size: .95rem; }
+  .detail-group label { display: block; font-size: .75rem; color: var(--zinc-400); text-transform: uppercase; margin-bottom: .25rem; font-weight: 700; }
+  .detail-group p { margin: 0; font-size: 1.1rem; color: var(--zinc-900); font-weight: 500; }
+  .detail-msg { background: var(--zinc-50); padding: 1rem; border-radius: 12px; border: 1px solid var(--zinc-200); white-space: pre-wrap; font-size: .95rem; }
 </style>
 
 <script>
@@ -328,7 +329,7 @@ function showDetails(el) {
       </div>
     </div>
 
-    <div class="form-section-title" style="font-size: 1rem; margin: 1.5rem 0 1rem; color: var(--teal-700); border-bottom: 1px solid var(--teal-100); padding-bottom: .5rem;">Owner Details</div>
+    <div class="form-section-title" style="font-size: 1rem; margin: 1.5rem 0 1rem; color: var(--zinc-700); border-bottom: 1px solid var(--zinc-200); padding-bottom: .5rem;">Owner Details</div>
     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
       <div class="detail-group">
         <label>Owner Name</label>
@@ -348,7 +349,7 @@ function showDetails(el) {
       </div>
     </div>
 
-    <div class="form-section-title" style="font-size: 1rem; margin: 1.5rem 0 1rem; color: var(--teal-700); border-bottom: 1px solid var(--teal-100); padding-bottom: .5rem;">Tenant Details</div>
+    <div class="form-section-title" style="font-size: 1rem; margin: 1.5rem 0 1rem; color: var(--zinc-700); border-bottom: 1px solid var(--zinc-200); padding-bottom: .5rem;">Tenant Details</div>
     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
       <div class="detail-group">
         <label>Tenant Name</label>
@@ -360,7 +361,7 @@ function showDetails(el) {
       </div>
     </div>
 
-    <div class="form-section-title" style="font-size: 1rem; margin: 1.5rem 0 1rem; color: var(--teal-700); border-bottom: 1px solid var(--teal-100); padding-bottom: .5rem;">Property & Rent Details</div>
+    <div class="form-section-title" style="font-size: 1rem; margin: 1.5rem 0 1rem; color: var(--zinc-700); border-bottom: 1px solid var(--zinc-200); padding-bottom: .5rem;">Property & Rent Details</div>
     <div class="detail-group">
       <label>Property Address</label>
       <p>${data.property_address}</p>

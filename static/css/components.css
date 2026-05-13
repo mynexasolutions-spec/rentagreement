@@ -1,33 +1,38 @@
 /* ===== BUTTONS ===== */
 .btn-primary {
   display: inline-block;
-  background: linear-gradient(135deg, var(--teal-700), var(--teal-500));
+  background: var(--primary);
   color: white;
-  padding: .85rem 2rem;
-  border-radius: 10px;
+  padding: 1rem 2.2rem;
+  border-radius: var(--radius);
   font-weight: 600;
-  font-size: .95rem;
-  letter-spacing: .02em;
-  transition: var(--transition);
-  box-shadow: 0 4px 20px rgba(32,153,176,.35);
-  cursor: pointer;
+  font-size: 1rem;
+  text-decoration: none;
   border: none;
+  cursor: pointer;
+  transition: var(--transition);
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
 }
 .btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 30px rgba(32,153,176,.45);
+  background: var(--primary-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
 }
-.btn-ghost {
+.btn-outline {
   display: inline-block;
-  color: white;
-  padding: .85rem 2rem;
-  border-radius: 10px;
+  color: var(--primary);
+  background: white;
+  padding: 1rem 2.2rem;
+  border-radius: var(--radius);
   font-weight: 600;
-  font-size: .95rem;
-  border: 2px solid rgba(255,255,255,.5);
+  font-size: 1rem;
+  border: 1px solid var(--primary);
   transition: var(--transition);
 }
-.btn-ghost:hover { background: rgba(255,255,255,.15); border-color: white; }
+.btn-outline:hover { 
+  background: var(--primary-light);
+  transform: translateY(-1px);
+}
 .btn-full { width: 100%; text-align: center; }
 .btn-whatsapp {
   display: inline-flex;
@@ -50,7 +55,7 @@
 
 /* ===== FORM ===== */
 .contact-form-wrap {
-  background: var(--off-white);
+  background: var(--zinc-50);
   border-radius: var(--radius-lg);
   padding: 2.5rem;
   box-shadow: var(--shadow-sm);
@@ -59,7 +64,7 @@
   font-family: var(--font-display);
   font-size: 1.4rem;
   font-weight: 700;
-  color: var(--teal-900);
+  color: var(--zinc-900);
   margin-bottom: 1.5rem;
 }
 .form-group {
@@ -69,7 +74,7 @@
   display: block;
   font-size: .82rem;
   font-weight: 600;
-  color: var(--teal-900);
+  color: var(--zinc-900);
   text-transform: uppercase;
   letter-spacing: .05em;
   margin-bottom: .4rem;
@@ -79,7 +84,7 @@
 .form-group textarea {
   width: 100%;
   padding: .75rem 1rem;
-  border: 1.5px solid var(--gray-200);
+  border: 1.5px solid var(--zinc-200);
   border-radius: 10px;
   font-family: var(--font-body);
   font-size: .95rem;
@@ -91,8 +96,8 @@
 .form-group input:focus,
 .form-group select:focus,
 .form-group textarea:focus {
-  border-color: var(--teal-500);
-  box-shadow: 0 0 0 3px rgba(32,153,176,.15);
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(0, 166, 118, 0.1);
 }
 .form-msg {
   margin-top: 1rem;

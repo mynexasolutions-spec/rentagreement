@@ -4,16 +4,27 @@ window.addEventListener('scroll', () => {
   navbar.classList.toggle('scrolled', window.scrollY > 50);
 });
 
-// Hamburger menu
+// Mobile Drawer
 const hamburger = document.getElementById('hamburger');
-const navLinks = document.getElementById('navLinks');
+const drawerClose = document.getElementById('drawerClose');
+const mobileDrawer = document.getElementById('mobileDrawer');
+
 hamburger?.addEventListener('click', () => {
-  navLinks.classList.toggle('open');
+  mobileDrawer?.classList.add('open');
+  document.body.style.overflow = 'hidden'; // Prevent scrolling when menu is open
+});
+
+drawerClose?.addEventListener('click', () => {
+  mobileDrawer?.classList.remove('open');
+  document.body.style.overflow = '';
 });
 
 // Close menu on link click
-navLinks?.querySelectorAll('a').forEach(link => {
-  link.addEventListener('click', () => navLinks.classList.remove('open'));
+mobileDrawer?.querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', () => {
+    mobileDrawer.classList.remove('open');
+    document.body.style.overflow = '';
+  });
 });
 
 // Contact form submission
